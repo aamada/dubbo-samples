@@ -32,7 +32,7 @@ public class HttpConsumer {
         context.start();
         DemoService demoService = (DemoService) context.getBean("demoService");
         String result = demoService.sayHello("world");
-        System.out.println(result);
+        System.err.println(result);
         System.in.read();
     }
 }
