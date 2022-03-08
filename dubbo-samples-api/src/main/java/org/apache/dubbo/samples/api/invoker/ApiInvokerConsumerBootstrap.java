@@ -27,11 +27,14 @@ public class ApiInvokerConsumerBootstrap {
     public static void main(String[] args) {
         System.setProperty("java.net.preferIPv4Stack", "true");
         ReferenceConfig<HelloService> reference = new ReferenceConfig<>();
-        reference.setApplication(new ApplicationConfig("first-dubbo-consumer"));
-        reference.setRegistry(new RegistryConfig("multicast://224.5.6.7:1234"));
+        ApplicationConfig application = new ApplicationConfig("first-dubbo-consumer");
+        application.setQosPort(3333);
+        reference.setApplication(application);
+        reference.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
+//        reference.setRegistry(new RegistryConfig("multicast://224.5.6.7:1234"));
         reference.setInterface(HelloService.class);
         HelloService helloService = reference.get();
         String message = helloService.sayHello("dubbo");
-        System.out.println(message);
+        System.err.println(message);
     }
 }
