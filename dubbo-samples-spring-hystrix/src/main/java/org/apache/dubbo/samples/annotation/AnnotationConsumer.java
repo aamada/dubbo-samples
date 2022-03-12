@@ -19,16 +19,11 @@
 
 package org.apache.dubbo.samples.annotation;
 
-import org.apache.dubbo.samples.annotation.action.AnnotationAction;
-
+import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import com.netflix.hystrix.contrib.javanica.aop.aspectj.HystrixCommandAspect;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.PropertySource;
+import org.apache.dubbo.samples.annotation.action.AnnotationAction;
+import org.springframework.context.annotation.*;
 
 /**
  * CallbackConsumer
@@ -67,6 +62,14 @@ public class AnnotationConsumer {
         @Bean
         public HystrixCommandAspect hystrixCommandAspect() {
             return new HystrixCommandAspect();
+        }
+        @Bean
+        public ApplicationConfig applicationConfig() {
+            ApplicationConfig applicationConfig = new ApplicationConfig();
+            applicationConfig.setName("annotation-consumer");
+            applicationConfig.setQosPort(33333);
+            applicationConfig.setQosEnable(true);
+            return applicationConfig;
         }
     }
 
